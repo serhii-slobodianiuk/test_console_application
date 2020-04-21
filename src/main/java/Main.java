@@ -102,7 +102,7 @@ public class Main {
         for (String path : pathsAndFilesCount.keySet()) {
             Long fileCount = pathsAndFilesCount.get(path);
             rowIndex++;
-            System.out.printf("%-10d| %-11d| %s\n", rowIndex++, fileCount, path);
+            System.out.printf("%-10d| %-11d| %s\n", rowIndex, fileCount, path);
         }
     }
 }
