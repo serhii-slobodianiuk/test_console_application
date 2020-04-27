@@ -3,6 +3,7 @@
  * */
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -13,7 +14,7 @@ public class SourceValidator {
                 "Wrong number of arguments");
     }
 
-    static void validateSourceFile(File file) {
+    static void validateSourceFile (File file) {
         if (!file.exists() || !file.canRead()) {
             System.err.println("Source file doesn't exist or is unreadable");
         }

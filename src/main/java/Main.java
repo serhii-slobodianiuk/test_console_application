@@ -1,14 +1,15 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Main {
 
     private static ExecutorService executor = Executors.newCachedThreadPool();
+    private static ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     public static void main(String[] args) {
 
@@ -27,71 +28,18 @@ public class Main {
         //ensure parent dirs are created
         destFile.getParentFile().mkdirs();
 
-        SourceReader sourceReader = new SourceReader();
-        List<String> userSourcePaths = sourceReader.getPathsFromSourceFile(sourceFileName);
-        Map<String, Long> pathsAndFilesCount = new HashMap<>();
+        List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
+        Map<String, Long> pathsAndFilesCount = new ConcurrentHashMap<>(userSourcePaths.size());
 
-        List<CallableTask> taskList = new ArrayList<>();
-        for (String s : userSourcePaths) {
-            CallableTask task = new CallableTask(s);
-            taskList.add(task);
-        }
+        MultiThreadCountable countable = new ParallelFileCounterService();
+        countable.createMultiThreadCount(userSourcePaths, executor, pathsAndFilesCount);
 
-        List<Future<FileCount>> resultList = null;
-        try {
-            resultList = executor.invokeAll(taskList);
-        } catch (InterruptedException e) {
-//            e.printStackTrace();
-        }
+//        MultiThreadCountable countable2 = new InnerCallCounter();
+//        countable2.createMultiThreadCount(userSourcePaths, executor, pathsAndFilesCount);
 
-        if (resultList != null) {
-            for (Future<FileCount> r : resultList) {
-
-                try {
-                    FileCount result;
-                    result = r.get(100, TimeUnit.MILLISECONDS);
-                    pathsAndFilesCount.put(result.getPath(), result.getCountFiles());
-                } catch (InterruptedException e) {
-                    r.cancel(true);
-                    System.out.println("Current thread was interrupted/cancelled");
-                } catch (ExecutionException e) {
-                    System.err.println("Internal exception: " + e.getMessage());
-                } catch (TimeoutException e) {
-                    r.cancel(true);
-                    System.out.println("Counting has timed out and cancelled");
-                }
-            }
-        }
-
-//        for (String path : userSourcePaths) {
-//            SourceValidator.validateSourceFile(new File(path));
-//            if (!executor.isShutdown()) {
-//                Future<?> futureResult = executor.submit(() -> {
-//                    pathsAndFilesCount.put(path, sourceReader.doCount(path));
-//                    return null;
-//                });
-//
-//                try {
-//                    futureResult.get(1500, TimeUnit.MILLISECONDS);
-//                } catch (InterruptedException e) {
-//                    System.out.println("\n" + "Current thread was interrupted/cancelled");
-//                    futureResult.cancel(true);
-//                    System.out.println("Thread has been cancelled");
-//                } catch (ExecutionException e) {
-//                    System.err.println("Internal exception: " + e.getMessage());
-//                } catch (TimeoutException e) {
-//                    futureResult.cancel(true);
-//                    System.out.println(path);
-//                    System.out.println("Counting has timed out and cancelled");
-//                    System.out.println();
-//                }
-//            }
-//        }
-
-
+        executor.shutdown();
         FormatConverter.createCSV(destFileName, pathsAndFilesCount);
         printDirectory(pathsAndFilesCount);
-        executor.shutdown();
     }
 
     private static void printDirectory(Map<String, Long> pathsAndFilesCount) {
