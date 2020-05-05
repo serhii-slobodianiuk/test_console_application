@@ -1,43 +1,40 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
 public class ParallelFileCounterService implements MultiThreadCountable {
 
+    private final Executor executor;
+    private List<String> userSourcePaths;
+    private Map<String, Long> pathsAndFilesCount;
+
+    ParallelFileCounterService(ExecutorService executor, List<String> userSourcePaths,
+                               Map<String, Long> pathsAndFilesCount) {
+        this.executor = executor;
+        this.userSourcePaths = userSourcePaths;
+        this.pathsAndFilesCount = pathsAndFilesCount;
+    }
+
     @Override
-    public void createMultiThreadCount(List<String> userSourcePaths,
-                                       ExecutorService executor,
-                                       Map<String, Long> pathsAndFilesCount) {
+    public void createMultiThreadCount() {
 
-        CompletionService<FileCount> cs = new ExecutorCompletionService<>(executor);
+        CompletionService<Long> cs = new ExecutorCompletionService<>(executor);
+        Future<Long> futureCountResult = null;
 
-        List<CallableTask> taskList = new ArrayList<>();
-
-        for (String path : userSourcePaths) {
-            CallableTask task = new CallableTask(path);
-            taskList.add(task);
-        }
-
-        for (CallableTask r : taskList) {
-            cs.submit(r);
-            Future<FileCount> future = null;
+        for (final String path : userSourcePaths) {
+            cs.submit(new FileCount(path));
 
             try {
-                future = cs.take();
-                FileCount fileCountResult;
-                fileCountResult = future.get(100, TimeUnit.MILLISECONDS);
-                pathsAndFilesCount.put(fileCountResult.getPath(), fileCountResult.getCountFiles());
-            } catch (InterruptedException e) {
-                if (future != null) {
-                    future.cancel(true);
-                }
-                System.out.println("Current thread was interrupted/cancelled");
+                futureCountResult = cs.take();
+                Long fileCountValue;
+                fileCountValue = futureCountResult.get();
+                pathsAndFilesCount.put(path, fileCountValue);
+
             } catch (ExecutionException e) {
                 System.err.println("Internal exception: " + e.getMessage());
-            } catch (TimeoutException e) {
-                future.cancel(true);
-                System.out.println("Counting has timed out and cancelled");
+            } catch (InterruptedException e) {
+                futureCountResult.cancel(true);
+                System.out.println("\n" + "Current thread was interrupted/cancelled");
             }
         }
     }

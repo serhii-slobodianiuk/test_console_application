@@ -23,32 +23,11 @@ class SourceReader {
             if (br != null) {
                 try {
                     br.close();
-                } catch (IOException e) {
-//                    e.printStackTrace();
+                } catch (IOException ignored) {
+
                 }
             }
         }
         return result;
-    }
-
-    static long doCount(String path) {
-        long count = 0;
-        File f = new File(path);
-        File[] files = f.listFiles();
-
-        while (!Thread.currentThread().isInterrupted()) {
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        count += doCount(file.getAbsolutePath());
-                    } else {
-                        count++;
-                    }
-                }
-            }
-            return count;
-        }
-        return count;
-
     }
 }
