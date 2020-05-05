@@ -8,7 +8,8 @@ public class ParallelFileCounterService implements MultiThreadCountable {
     private List<String> userSourcePaths;
     private Map<String, Long> pathsAndFilesCount;
 
-    ParallelFileCounterService(ExecutorService executor, List<String> userSourcePaths,
+    ParallelFileCounterService(ExecutorService executor,
+                               List<String> userSourcePaths,
                                Map<String, Long> pathsAndFilesCount) {
         this.executor = executor;
         this.userSourcePaths = userSourcePaths;
