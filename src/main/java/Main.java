@@ -28,8 +28,8 @@ public class Main {
 
         List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
 
-        InterruptThread interruptThread = new InterruptThread(executor);
-        executor.submit(interruptThread);
+        InterruptThreadListener listener = new InterruptThreadListener(executor);
+        executor.submit(listener);
 
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
         countable.createMultiThreadCount();

@@ -1,3 +1,3 @@
 public interface Countable {
-    Long count(String path);
+    Long count(String s);
 }

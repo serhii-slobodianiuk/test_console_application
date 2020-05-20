@@ -13,10 +13,12 @@ public class SourceValidator {
                 "Wrong number of arguments");
     }
 
-    static void validateSourceFile(File file) {
+    static boolean validateSourceFile(File file) {
         if (!file.exists() || !file.canRead()) {
-            System.err.println("Source file doesn't exist or is unreadable");
+            System.err.println(file + "...... file doesn't exist or unreadable");
+            return false;
         }
+        return true;
     }
 
     static void validateDestFile(File file) {

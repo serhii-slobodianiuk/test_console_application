@@ -14,8 +14,9 @@ class SourceReader {
             br = new BufferedReader(new FileReader(sourceFileName));
             String s;
             while ((s = br.readLine()) != null) {
-                SourceValidator.validateSourceFile(new File(s));
-                result.add(s);
+                if (SourceValidator.validateSourceFile(new File(s))) {
+                    result.add(s);
+                }
             }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());

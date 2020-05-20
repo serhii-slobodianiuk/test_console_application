@@ -1,7 +1,7 @@
 import java.io.File;
 import java.util.concurrent.Callable;
 
-public class FileCount implements Callable<Long>, Countable {
+public class FileCount implements Callable<SourceData>, Countable {
     private final String path;
 
     FileCount(String path) {
@@ -11,28 +11,30 @@ public class FileCount implements Callable<Long>, Countable {
     @Override
     public Long count(String path) {
 
-        long count = 0;
-        while (!Thread.currentThread().isInterrupted()) {
+        long countResult = 0;
+
+        if (!Thread.currentThread().isInterrupted()) {
             File f = new File(path);
             File[] files = f.listFiles();
 
             if (files != null) {
                 for (File file : files) {
                     if (file.isDirectory()) {
-                        count += count(file.getAbsolutePath());
+                        countResult += count(file.getAbsolutePath());
                     } else {
-                        count++;
+                        countResult++;
+
                     }
                 }
             }
-            return count;
+            return countResult;
+        } else {
+            return countResult;
         }
-        System.out.println(" Current thread is interrupted");
-        return count;
     }
 
     @Override
-    public Long call() {
-        return count(path);
+    public SourceData call() {
+        return new SourceData(path, count(path));
     }
 }
