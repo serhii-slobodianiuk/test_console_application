@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 
-public class ParallelFileCounterService implements MultiThreadCountable {
+public class ParallelFileCounterService implements MultiThreadable {
 
     private final ExecutorService executor;
     private List<String> userSourcePaths;
@@ -20,7 +20,7 @@ public class ParallelFileCounterService implements MultiThreadCountable {
     }
 
     @Override
-    public void createMultiThreadCount() {
+    public void createMultiThread() {
 
         CompletionService<SourceData> cs = new ExecutorCompletionService<>(executor);
 

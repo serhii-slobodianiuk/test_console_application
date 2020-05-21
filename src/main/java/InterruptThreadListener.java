@@ -11,17 +11,15 @@ public class InterruptThreadListener implements Runnable {
 
     @Override
     public void run() {
-        scannerListener();
-    }
-
-    public void scannerListener() {
-        // TODO: 19.05.2020 create Listener for stopping executor
         String s;
-        do{
+        do {
             Scanner scanner = new Scanner(System.in);
-            s = scanner.nextLine();
-        }while (!s.equals("q"));
-        executor.shutdownNow();
+            System.out.println("Waiting for entering \"q\"");
 
+            // Scanner waiting for entering that's why thread can't stop
+            s = scanner.nextLine();
+
+        } while (!s.equals("q"));
+        executor.shutdownNow();
     }
 }

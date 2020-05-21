@@ -32,13 +32,12 @@ public class Main {
         executor.submit(listener);
 
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
-        countable.createMultiThreadCount();
+        countable.createMultiThread();
 
         Map<String, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
-        printDirectory(pathsAndFilesCount);
         FormatConverter.createCSV(destFileName, pathsAndFilesCount);
-        executor.shutdown();
-
+        printDirectory(pathsAndFilesCount);
+        executor.shutdownNow();
     }
 
     private static void printDirectory(Map<String, Long> pathsAndFilesCount) {
