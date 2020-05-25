@@ -1,3 +1,5 @@
+package SourceData;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -5,9 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class SourceReader {
+public class SourceReader {
 
-    static List<String> getPathsFromSourceFile(String sourceFileName) {
+    public static List<String> getPathsFromSourceFile(String sourceFileName) {
         BufferedReader br = null;
         List<String> result = new ArrayList<>();
         try {

@@ -1,3 +1,5 @@
+package Util;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,9 +10,9 @@ import java.util.Map;
  * Here may be other methods of convert to different formats
  * */
 
-class FormatConverter {
+public class FormatConverter {
 
-    static void createCSV(String destFile, Map<String, Long> pathsAndFilesCount) {
+    public static void createCSV(String destFile, Map<String, Long> pathsAndFilesCount) {
         for (String path : pathsAndFilesCount.keySet()) {
             Long fileCount = pathsAndFilesCount.get(path);
             try (FileWriter fw = new FileWriter(destFile, true);
