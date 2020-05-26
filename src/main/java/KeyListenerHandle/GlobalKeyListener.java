@@ -25,8 +25,8 @@ public class GlobalKeyListener implements NativeKeyListener {
 
         if (event.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
             try {
-                GlobalScreen.unregisterNativeHook();
                 executor.shutdownNow();
+                GlobalScreen.unregisterNativeHook();
             } catch (NativeHookException e1) {
                 e1.printStackTrace();
             }
