@@ -41,10 +41,14 @@ public class Main {
         KeyListenerService keyListener = new KeyListenerService(executor);
         keyListener.createListener();
 
+        //Read paths from user specified source
         List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
+
+        //Run the parallel counting on all paths
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
         countable.createMultiThreading();
 
+        //Collect result of counting
         Map<String, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
         FormatConverter.createCSV(destFileName, pathsAndFilesCount);
 

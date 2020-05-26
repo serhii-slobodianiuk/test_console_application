@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 /*
- * Here may be other methods of convert to different formats
+ * Converting to
  * */
 
 public class FormatConverter {
@@ -20,8 +20,8 @@ public class FormatConverter {
                  PrintWriter out = new PrintWriter(bw)) {
                 out.print(path);
                 out.print(";");
-                out.print(fileCount);
-                out.println(";");
+                out.println(fileCount);
+//                out.println(";");
             } catch (IOException e) {
                 e.printStackTrace();
             }
