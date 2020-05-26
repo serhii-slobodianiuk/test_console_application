@@ -34,15 +34,15 @@ public class Main {
         //ensure parent dirs are created
         destFile.getParentFile().mkdirs();
 
-        // Disable all console output
+        //Disable all console output
         ConsoleLogger.consoleLogger();
+
+        //Read paths from user specified source
+        List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
 
         //Run the KeyListenerHandle
         KeyListenerService keyListener = new KeyListenerService(executor);
         keyListener.createListener();
-
-        //Read paths from user specified source
-        List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
 
         //Run the parallel counting on all paths
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
