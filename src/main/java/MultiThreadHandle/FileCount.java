@@ -1,3 +1,5 @@
+package MultiThreadHandle;
+
 import SourceData.SourceData;
 
 import java.io.File;
@@ -14,6 +16,7 @@ public class FileCount implements Callable<SourceData>, Countable {
     public Long count(String path) {
 
         long countResult = 0;
+
         if (!Thread.currentThread().isInterrupted()) {
             File f = new File(path);
             File[] files = f.listFiles();

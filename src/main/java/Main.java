@@ -1,5 +1,8 @@
+import KeyListenerHandle.KeyListenerService;
+import MultiThreadHandle.ParallelFileCounterService;
 import SourceData.SourceReader;
 import SourceData.SourceValidator;
+import Util.ConsoleLogger;
 import Util.FormatConverter;
 import Util.Printer;
 
@@ -31,17 +34,21 @@ public class Main {
         //ensure parent dirs are created
         destFile.getParentFile().mkdirs();
 
+        // Disable all console output
+        ConsoleLogger.consoleLogger();
+
+        //Run the KeyListenerHandle
+        KeyListenerService keyListener = new KeyListenerService(executor);
+        keyListener.createListener();
+
         List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
-
-        InterruptThreadListener listener = new InterruptThreadListener(executor);
-        executor.submit(listener);
-
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
-        countable.createMultiThread();
+        countable.createMultiThreading();
 
         Map<String, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
         FormatConverter.createCSV(destFileName, pathsAndFilesCount);
-        executor.shutdown();
 
+        executor.shutdown();
+        System.exit(0);
     }
 }

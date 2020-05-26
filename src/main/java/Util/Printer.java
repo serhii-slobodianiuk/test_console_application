@@ -3,6 +3,7 @@ package Util;
 import java.util.Map;
 
 public class Printer {
+
     public static void printDirectory(Map<String, Long> pathsAndFilesCount) {
         int rowIndex = 0;
 //        System.out.println();

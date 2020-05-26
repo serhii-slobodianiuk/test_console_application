@@ -1,3 +1,5 @@
+package MultiThreadHandle;
+
 import SourceData.SourceData;
 
 import java.util.List;
@@ -11,7 +13,7 @@ public class ParallelFileCounterService implements MultiThreadable {
     private List<String> userSourcePaths;
     private Map<String, Long> pathsAndFilesCount;
 
-    ParallelFileCounterService(ExecutorService executor, List<String> userSourcePaths) {
+    public ParallelFileCounterService(ExecutorService executor, List<String> userSourcePaths) {
         this.executor = executor;
         this.userSourcePaths = userSourcePaths;
         this.pathsAndFilesCount = new ConcurrentHashMap<>(userSourcePaths.size());
@@ -22,7 +24,7 @@ public class ParallelFileCounterService implements MultiThreadable {
     }
 
     @Override
-    public void createMultiThread() {
+    public void createMultiThreading() {
 
         CompletionService<SourceData> cs = new ExecutorCompletionService<>(executor);
 
@@ -45,8 +47,10 @@ public class ParallelFileCounterService implements MultiThreadable {
                 pathsAndFilesCount.put(path, fileCountValue);
 
             } catch (InterruptedException e) {
-                result.cancel(true);
-                System.out.println("\n" + "Current thread was interrupted/cancelled");
+                if (result != null) {
+                    result.cancel(true);
+                    System.out.println("\n" + "Current thread was interrupted/cancelled");
+                }
             } catch (ExecutionException e) {
                 System.err.println("Internal exception: " + e.getMessage());
             }
