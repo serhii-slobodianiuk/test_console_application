@@ -40,7 +40,10 @@ public class Main {
         //Read paths from user specified source
         List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
 
-        //Run the KeyListenerHandle
+        /*
+        * Run the KeyListenerHandle with the ability interrupt the Thread
+        * with the kay Escape
+        * */
         KeyListenerService keyListener = new KeyListenerService(executor);
         keyListener.createListener();
 
