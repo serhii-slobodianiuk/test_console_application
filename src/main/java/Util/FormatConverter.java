@@ -23,7 +23,7 @@ public class FormatConverter {
                 out.println(fileCount);
 //                out.println(";");
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new IllegalStateException(e);
             }
         }
     }
