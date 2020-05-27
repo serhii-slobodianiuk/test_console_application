@@ -1,9 +1,9 @@
 import KeyListenerHandle.KeyListenerService;
 import MultiThreadHandle.ParallelFileCounterService;
-import SourceData.SourceReader;
-import SourceData.SourceValidator;
+import SourceData.Arguments;
+import SourceData.Path;
 import Util.ConsoleLogger;
-import Util.FormatConverter;
+import Util.CsvReport;
 import Util.Printer;
 
 import java.io.File;
@@ -19,35 +19,28 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SourceValidator.checkNumberOfArgument(args);
+        Arguments arguments = new Arguments(args);
 
-        final String sourceFileName = args[0];
-        SourceValidator.validateSourceFile(new File(sourceFileName));
+        arguments.checkNumberOfArgument();
+        String sourceFileName = String.valueOf(arguments.sourceFile());
+        String destFileName = String.valueOf(arguments.destinationFile());
+        arguments.ensureParentDirExists(new File(destFileName));
 
-        final String destFileName = args[1];
-        final File destFile = new File(destFileName);
-        SourceValidator.validateDestFile(destFile);
+        ConsoleLogger.disableLog();
 
-        //ensure parent dirs are created
-        destFile.getParentFile().mkdirs();
+        List<String> userSourcePaths = Path.readFrom(arguments, sourceFileName);
 
-        //Disable all console output
-        ConsoleLogger.consoleLogger();
-
-        List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
-
-        /*
-        * Run the KeyListenerHandle with the ability interrupt the Thread
-        * with the kay Escape
-        * */
         KeyListenerService keyListener = new KeyListenerService(executor);
-        keyListener.createListener();
+        keyListener.listenToESC();
 
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
         countable.createMultiThreading();
 
         Map<String, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
-        FormatConverter.createCSV(destFileName, pathsAndFilesCount);
+
+        Printer.printDirectory(pathsAndFilesCount);
+
+        CsvReport.saveTo(destFileName, pathsAndFilesCount);
 
         executor.shutdown();
         System.exit(0);

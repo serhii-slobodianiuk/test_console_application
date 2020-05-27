@@ -20,7 +20,7 @@ public class Arguments {
                 new IllegalArgumentException());
     }
 
-    public File validateFile(String path) {
+    File validateFile(String path) {
         File file = new File(path);
 
         if (!file.exists()) {
@@ -45,5 +45,4 @@ public class Arguments {
     public void ensureParentDirExists(File destinationFile){
         destinationFile.getParentFile().mkdirs();
     }
-
 }
