@@ -10,9 +10,9 @@ import java.util.Map;
  * Converting to
  * */
 
-public class FormatConverter {
+public class CsvReport {
 
-    public static void createCSV(String destFile, Map<String, Long> pathsAndFilesCount) {
+    public static void saveTo(String destFile, Map<String, Long> pathsAndFilesCount) {
         for (String path : pathsAndFilesCount.keySet()) {
             Long fileCount = pathsAndFilesCount.get(path);
             try (FileWriter fw = new FileWriter(destFile, true);
