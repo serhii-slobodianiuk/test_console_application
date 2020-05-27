@@ -19,14 +19,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //check number of arguments
         SourceValidator.checkNumberOfArgument(args);
 
-        // validate source file
         final String sourceFileName = args[0];
         SourceValidator.validateSourceFile(new File(sourceFileName));
 
-        // validate dest file
         final String destFileName = args[1];
         final File destFile = new File(destFileName);
         SourceValidator.validateDestFile(destFile);
@@ -37,7 +34,6 @@ public class Main {
         //Disable all console output
         ConsoleLogger.consoleLogger();
 
-        //Read paths from user specified source
         List<String> userSourcePaths = SourceReader.getPathsFromSourceFile(sourceFileName);
 
         /*
@@ -47,11 +43,9 @@ public class Main {
         KeyListenerService keyListener = new KeyListenerService(executor);
         keyListener.createListener();
 
-        //Run the parallel counting on all paths
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
         countable.createMultiThreading();
 
-        //Collect result of counting
         Map<String, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
         FormatConverter.createCSV(destFileName, pathsAndFilesCount);
 
