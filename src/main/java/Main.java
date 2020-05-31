@@ -1,17 +1,17 @@
-import KeyListenerHandle.KeyListenerService;
+import KeyListenerHandle.GlobalKeyListener;
 import MultiThreadHandle.ParallelFileCounterService;
 import SourceData.Arguments;
-import SourceData.Path;
+import SourceData.UsersSourceRead;
 import Util.ConsoleLogger;
 import Util.CsvReport;
 import Util.Printer;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 
 public class Main {
 
@@ -28,21 +28,24 @@ public class Main {
 
         ConsoleLogger.disableLog();
 
-        List<String> userSourcePaths = Path.readFrom(arguments, sourceFileName);
+        List<Path> userSourcePaths = UsersSourceRead.readFrom(arguments, sourceFileName);
 
-        KeyListenerService keyListener = new KeyListenerService(executor);
-        keyListener.listenToESC();
+        GlobalKeyListener.listenToEsc(Main::shutDownExecutor);
 
         ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
         countable.createMultiThreading();
 
-        Map<String, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
+        Map<Path, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
 
         Printer.printDirectory(pathsAndFilesCount);
 
-        CsvReport.saveTo(destFileName, pathsAndFilesCount);
+        CsvReport.save(destFileName, pathsAndFilesCount);
 
         executor.shutdown();
         System.exit(0);
+    }
+
+    private static void shutDownExecutor() {
+        executor.shutdownNow();
     }
 }
