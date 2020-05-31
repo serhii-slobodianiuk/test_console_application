@@ -1,16 +1,18 @@
 package SourceData;
 
+import java.nio.file.Path;
+
 public class SourceData {
 
-    private String path;
+    private Path path;
     private Long countValue;
 
-    public SourceData(String path, Long countValue) {
+    public SourceData(Path path, Long countValue) {
         this.path = path;
         this.countValue = countValue;
     }
 
-    public String getPath() {
+    public Path getPath() {
         return path;
     }
 

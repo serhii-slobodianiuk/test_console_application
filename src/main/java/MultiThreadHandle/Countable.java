@@ -1,5 +1,7 @@
 package MultiThreadHandle;
 
+import java.nio.file.Path;
+
 public interface Countable {
-    Long count(String s);
+    Long count(Path path);
 }

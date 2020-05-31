@@ -2,6 +2,7 @@ package MultiThreadHandle;
 
 import SourceData.SourceData;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -10,16 +11,16 @@ import java.util.concurrent.*;
 public class ParallelFileCounterService implements MultiThreadable {
 
     private final ExecutorService executor;
-    private List<String> userSourcePaths;
-    private Map<String, Long> pathsAndFilesCount;
+    private List<Path> userSourcePaths;
+    private Map<Path, Long> pathsAndFilesCount;
 
-    public ParallelFileCounterService(ExecutorService executor, List<String> userSourcePaths) {
+    public ParallelFileCounterService(ExecutorService executor, List<Path> userSourcePaths) {
         this.executor = executor;
         this.userSourcePaths = userSourcePaths;
         this.pathsAndFilesCount = new ConcurrentHashMap<>(userSourcePaths.size());
     }
 
-    public Map<String, Long> getPathsAndFilesCount() {
+    public Map<Path, Long> getPathsAndFilesCount() {
         return pathsAndFilesCount;
     }
 
@@ -28,7 +29,7 @@ public class ParallelFileCounterService implements MultiThreadable {
 
         CompletionService<SourceData> cs = new ExecutorCompletionService<>(executor);
 
-        for (String path : userSourcePaths) {
+        for (Path path : userSourcePaths) {
             cs.submit(new FileCount(path));
         }
 
@@ -36,7 +37,7 @@ public class ParallelFileCounterService implements MultiThreadable {
 
             Future<SourceData> result = null;
             SourceData fileCountResult;
-            String path;
+            Path path;
             Long fileCountValue;
 
             try {

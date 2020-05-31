@@ -3,28 +3,30 @@ package MultiThreadHandle;
 import SourceData.SourceData;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
 public class FileCount implements Callable<SourceData>, Countable {
-    private final String path;
+    private final Path path;
 
-    FileCount(String path) {
+    FileCount(Path path) {
         this.path = path;
     }
 
     @Override
-    public Long count(String path) {
+    public Long count(Path path) {
 
         long countResult = 0;
 
         if (!Thread.currentThread().isInterrupted()) {
-            File f = new File(path);
+            File f = new File(String.valueOf(path));
             File[] files = f.listFiles();
 
             if (files != null) {
                 for (File file : files) {
                     if (file.isDirectory()) {
-                        countResult += count(file.getAbsolutePath());
+                        countResult += count(Paths.get(file.getAbsolutePath()));
                     } else {
                         countResult++;
 

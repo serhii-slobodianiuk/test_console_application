@@ -4,16 +4,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.util.Map;
-
-/*
- * Converting to
- * */
 
 public class CsvReport {
 
-    public static void saveTo(String destFile, Map<String, Long> pathsAndFilesCount) {
-        for (String path : pathsAndFilesCount.keySet()) {
+    public static void save(String destFile, Map<Path, Long> pathsAndFilesCount) {
+        for (Path path : pathsAndFilesCount.keySet()) {
             Long fileCount = pathsAndFilesCount.get(path);
             try (FileWriter fw = new FileWriter(destFile, true);
                  BufferedWriter bw = new BufferedWriter(fw);
