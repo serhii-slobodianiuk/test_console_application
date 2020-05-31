@@ -1,7 +1,7 @@
 import KeyListenerHandle.GlobalKeyListener;
-import MultiThreadHandle.ParallelFileCounterService;
+import MultiThreadHandle.FileCounterService;
 import SourceData.Arguments;
-import SourceData.UsersSourceRead;
+import SourceData.SourceRead;
 import Util.ConsoleLogger;
 import Util.CsvReport;
 import Util.Printer;
@@ -28,12 +28,12 @@ public class Main {
 
         ConsoleLogger.disableLog();
 
-        List<Path> userSourcePaths = UsersSourceRead.readFrom(arguments, sourceFileName);
+        List<Path> paths = SourceRead.readFrom(arguments, sourceFileName);
 
-        GlobalKeyListener.listenToEsc(Main::shutDownExecutor);
+        GlobalKeyListener.listenToEsc(Main::shutDownNowExecutor);
 
-        ParallelFileCounterService countable = new ParallelFileCounterService(executor, userSourcePaths);
-        countable.createMultiThreading();
+        FileCounterService countable = new FileCounterService(executor, paths);
+        countable.fileCountStatistics();
 
         Map<Path, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
 
@@ -45,7 +45,7 @@ public class Main {
         System.exit(0);
     }
 
-    private static void shutDownExecutor() {
+    private static void shutDownNowExecutor() {
         executor.shutdownNow();
     }
 }

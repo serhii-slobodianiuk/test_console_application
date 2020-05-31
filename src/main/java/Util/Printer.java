@@ -7,7 +7,7 @@ public class Printer {
 
     public static void printDirectory(Map<Path, Long> pathsAndFilesCount) {
         int rowIndex = 0;
-        System.out.printf("%-10s| %-11s| %s\n", "Row Index", "File count", "UsersSourceRead");
+        System.out.printf("%-10s| %-11s| %s\n", "Row Index", "File count", "SourceRead");
         System.out.println("-------------------------------");
         for (Path path : pathsAndFilesCount.keySet()) {
             Long fileCount = pathsAndFilesCount.get(path);

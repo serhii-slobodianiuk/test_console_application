@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 
-public class ParallelFileCounterService implements MultiThreadable {
+public class FileCounterService implements MultiThreadable {
 
     private final ExecutorService executor;
     private List<Path> userSourcePaths;
     private Map<Path, Long> pathsAndFilesCount;
 
-    public ParallelFileCounterService(ExecutorService executor, List<Path> userSourcePaths) {
+    public FileCounterService(ExecutorService executor, List<Path> userSourcePaths) {
         this.executor = executor;
         this.userSourcePaths = userSourcePaths;
         this.pathsAndFilesCount = new ConcurrentHashMap<>(userSourcePaths.size());
@@ -25,7 +25,7 @@ public class ParallelFileCounterService implements MultiThreadable {
     }
 
     @Override
-    public void createMultiThreading() {
+    public void fileCountStatistics() {
 
         CompletionService<SourceData> cs = new ExecutorCompletionService<>(executor);
 

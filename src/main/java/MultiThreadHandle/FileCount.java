@@ -14,7 +14,6 @@ public class FileCount implements Callable<SourceData>, Countable {
         this.path = path;
     }
 
-    @Override
     public Long count(Path path) {
 
         long countResult = 0;
@@ -39,7 +38,6 @@ public class FileCount implements Callable<SourceData>, Countable {
         }
     }
 
-    @Override
     public SourceData call() {
         return new SourceData(path, count(path));
     }
