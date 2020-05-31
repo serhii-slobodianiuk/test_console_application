@@ -5,27 +5,39 @@ import org.jnativehook.NativeHookException;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
-import java.util.concurrent.ExecutorService;
+import static org.jnativehook.GlobalScreen.addNativeKeyListener;
 
-public class GlobalKeyListener implements NativeKeyListener {
+public final class GlobalKeyListener implements NativeKeyListener {
 
-    private final ExecutorService executor;
+    private Runnable eventHandler;
 
-    GlobalKeyListener(ExecutorService executor) {
-        this.executor = executor;
+    private GlobalKeyListener(Runnable eventHandler) {
+        this.eventHandler = eventHandler;
     }
 
-    @Override
-    public void nativeKeyTyped(NativeKeyEvent event) {
-        // nothing to do
+    public static void listenToEsc(Runnable eventHandler){
+        registerListener(eventHandler);
+    }
+
+    private static void registerListener(Runnable eventHandler) {
+
+        try {
+
+            GlobalScreen.registerNativeHook();
+
+        } catch (NativeHookException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+            throw new IllegalStateException();
+        }
+        addNativeKeyListener(new GlobalKeyListener(eventHandler));
     }
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent event) {
-
         if (event.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
             try {
-                executor.shutdownNow();
+                whenPressed(eventHandler);
                 GlobalScreen.unregisterNativeHook();
             } catch (NativeHookException e1) {
                 e1.printStackTrace();
@@ -37,4 +49,15 @@ public class GlobalKeyListener implements NativeKeyListener {
     public void nativeKeyReleased(NativeKeyEvent event) {
         // nothing to do
     }
+
+    @Override
+    public void nativeKeyTyped(NativeKeyEvent event) {
+        // nothing to do
+    }
+
+    private void whenPressed(Runnable eventHandler) {
+        this.eventHandler = eventHandler;
+        this.eventHandler.run();
+    }
+
 }
