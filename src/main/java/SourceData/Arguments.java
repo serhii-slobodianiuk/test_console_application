@@ -2,20 +2,13 @@ package SourceData;/*
  * A directory to validate an input data from specified by the user.
  * */
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
 public class Arguments {
 
-    private  String[] args;
+    private String[] args;
 
     public Arguments(String[] args) {
         this.args = args;
@@ -49,7 +42,7 @@ public class Arguments {
         return validateFile(args[1]);
     }
 
-    public void ensureParentDirExists(File destinationFile){
+    public void ensureParentDirExists(File destinationFile) {
         destinationFile.getParentFile().mkdirs();
     }
 
