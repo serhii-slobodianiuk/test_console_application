@@ -57,6 +57,5 @@ public class CountStatisticsImpl implements CountStatistics {
                 System.err.println("Internal exception: " + e.getMessage());
             }
         }
-
     }
 }
