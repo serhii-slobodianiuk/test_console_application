@@ -7,14 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-public class FileCount implements Callable<SourceData>, Countable {
+public class FileCount implements Callable<SourceData>{
     private final Path path;
 
     FileCount(Path path) {
         this.path = path;
     }
 
-    public Long count(Path path) {
+    private Long count(Path path) {
 
         long countResult = 0;
 

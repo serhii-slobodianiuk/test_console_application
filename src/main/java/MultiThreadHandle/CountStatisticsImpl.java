@@ -8,20 +8,21 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 
-public class FileCounterService implements MultiThreadable {
+public class CountStatisticsImpl implements CountStatistics {
 
     private final ExecutorService executor;
     private List<Path> userSourcePaths;
-    private Map<Path, Long> pathsAndFilesCount;
+    private Map<Path, Long> statisticsResult;
 
-    public FileCounterService(ExecutorService executor, List<Path> userSourcePaths) {
+    public CountStatisticsImpl(ExecutorService executor, List<Path> userSourcePaths) {
         this.executor = executor;
         this.userSourcePaths = userSourcePaths;
-        this.pathsAndFilesCount = new ConcurrentHashMap<>(userSourcePaths.size());
+        this.statisticsResult = new ConcurrentHashMap<>(userSourcePaths.size());
     }
 
-    public Map<Path, Long> getPathsAndFilesCount() {
-        return pathsAndFilesCount;
+    @Override
+    public Map<Path, Long> getStatisticsResult() {
+        return statisticsResult;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class FileCounterService implements MultiThreadable {
                 fileCountResult = result.get();
                 path = fileCountResult.getPath();
                 fileCountValue = fileCountResult.getCountValue();
-                pathsAndFilesCount.put(path, fileCountValue);
+                statisticsResult.put(path, fileCountValue);
 
             } catch (InterruptedException e) {
                 if (result != null) {

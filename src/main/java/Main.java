@@ -1,10 +1,10 @@
 import KeyListenerHandle.GlobalKeyListener;
-import MultiThreadHandle.FileCounterService;
+import MultiThreadHandle.CountStatistics;
+import MultiThreadHandle.CountStatisticsImpl;
 import SourceData.Arguments;
 import SourceData.SourceRead;
 import Util.ConsoleLogger;
-import Util.CsvReport;
-import Util.Printer;
+import Util.Report;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -30,22 +30,17 @@ public class Main {
 
         List<Path> paths = SourceRead.readFrom(arguments, sourceFileName);
 
-        GlobalKeyListener.listenToEsc(Main::shutDownNowExecutor);
+        GlobalKeyListener.listenToEsc(executor::shutdownNow);
 
-        FileCounterService countable = new FileCounterService(executor, paths);
+        CountStatistics countable = new CountStatisticsImpl(executor, paths);
         countable.fileCountStatistics();
 
-        Map<Path, Long> pathsAndFilesCount = countable.getPathsAndFilesCount();
+        Map<Path, Long> statisticsResult = countable.getStatisticsResult();
 
-        Printer.printDirectory(pathsAndFilesCount);
-
-        CsvReport.save(destFileName, pathsAndFilesCount);
+        Report.result(statisticsResult).print();
+        Report.result(statisticsResult).CsvSave(destFileName);
 
         executor.shutdown();
         System.exit(0);
-    }
-
-    private static void shutDownNowExecutor() {
-        executor.shutdownNow();
     }
 }

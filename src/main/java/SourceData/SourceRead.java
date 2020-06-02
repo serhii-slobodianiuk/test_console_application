@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SourceRead {
+public final class SourceRead {
 
     public static List<Path> readFrom(Arguments arguments, String sourceFileName) {
         List<Path> result = new ArrayList<>();
