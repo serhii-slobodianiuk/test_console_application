@@ -15,11 +15,11 @@ public final class Report {
         this.statisticsResult = statisticsResult;
     }
 
-    public static Report result(Map<Path, Long> statisticsResult) {
+    public static Report create(Map<Path, Long> statisticsResult) {
         return new Report(statisticsResult);
     }
 
-    public void CsvSave(String destination) {
+    public void saveCsv(String destination) {
         for (Path path : statisticsResult.keySet()) {
             Long fileCount = statisticsResult.get(path);
             try (FileWriter fw = new FileWriter(destination, true);

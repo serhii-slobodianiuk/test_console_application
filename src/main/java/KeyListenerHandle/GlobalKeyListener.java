@@ -15,11 +15,7 @@ public final class GlobalKeyListener implements NativeKeyListener {
         this.eventHandler = eventHandler;
     }
 
-    public static void listenToEsc(Runnable eventHandler){
-        registerListener(eventHandler);
-    }
-
-    private static void registerListener(Runnable eventHandler) {
+    public static void escListener(Runnable eventHandler) {
 
         try {
             GlobalScreen.registerNativeHook();

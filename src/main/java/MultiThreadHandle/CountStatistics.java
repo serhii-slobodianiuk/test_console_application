@@ -8,5 +8,4 @@ public interface CountStatistics {
     void fileCountStatistics();
 
     Map<Path, Long> getStatisticsResult();
-
 }

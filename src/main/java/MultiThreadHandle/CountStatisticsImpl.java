@@ -11,13 +11,13 @@ import java.util.concurrent.*;
 public class CountStatisticsImpl implements CountStatistics {
 
     private final ExecutorService executor;
-    private List<Path> userSourcePaths;
+    private List<Path> paths;
     private Map<Path, Long> statisticsResult;
 
-    public CountStatisticsImpl(ExecutorService executor, List<Path> userSourcePaths) {
+    public CountStatisticsImpl(ExecutorService executor, List<Path> paths) {
         this.executor = executor;
-        this.userSourcePaths = userSourcePaths;
-        this.statisticsResult = new ConcurrentHashMap<>(userSourcePaths.size());
+        this.paths = paths;
+        this.statisticsResult = new ConcurrentHashMap<>(paths.size());
     }
 
     @Override
@@ -30,11 +30,11 @@ public class CountStatisticsImpl implements CountStatistics {
 
         CompletionService<SourceData> cs = new ExecutorCompletionService<>(executor);
 
-        for (Path path : userSourcePaths) {
+        for (Path path : paths) {
             cs.submit(new FileCount(path));
         }
 
-        for (int i = 0; i < userSourcePaths.size(); i++) {
+        for (int i = 0; i < paths.size(); i++) {
 
             Future<SourceData> result = null;
             SourceData fileCountResult;
@@ -58,5 +58,4 @@ public class CountStatisticsImpl implements CountStatistics {
             }
         }
     }
-
 }

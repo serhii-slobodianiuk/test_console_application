@@ -30,17 +30,20 @@ public class Main {
 
         List<Path> paths = SourceRead.readFrom(arguments, sourceFileName);
 
-        GlobalKeyListener.listenToEsc(executor::shutdownNow);
+        GlobalKeyListener.escListener(executor::shutdownNow);
 
         CountStatistics countable = new CountStatisticsImpl(executor, paths);
         countable.fileCountStatistics();
 
         Map<Path, Long> statisticsResult = countable.getStatisticsResult();
 
-        Report.result(statisticsResult).print();
-        Report.result(statisticsResult).CsvSave(destFileName);
+        Report.create(statisticsResult)
+                .print();
+        Report.create(statisticsResult)
+                .saveCsv(destFileName);
 
         executor.shutdown();
         System.exit(0);
+
     }
 }
