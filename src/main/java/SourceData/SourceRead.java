@@ -23,5 +23,4 @@ public final class SourceRead {
         }
         return result;
     }
-
 }
