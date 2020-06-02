@@ -15,7 +15,7 @@ public final class Report {
         this.statisticsResult = statisticsResult;
     }
 
-    public static Report result(Map<Path, Long> statisticsResult){
+    public static Report result(Map<Path, Long> statisticsResult) {
         return new Report(statisticsResult);
     }
 
@@ -43,8 +43,6 @@ public final class Report {
             Long fileCount = statisticsResult.get(path);
             rowIndex++;
             System.out.printf("%-10d| %-11d| %s\n", rowIndex, fileCount, path);
-
         }
-
     }
 }
