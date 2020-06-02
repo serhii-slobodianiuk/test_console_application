@@ -19,5 +19,4 @@ public class SourceData {
     public Long getCountValue() {
         return countValue;
     }
-
 }
