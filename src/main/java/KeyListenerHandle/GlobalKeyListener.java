@@ -57,5 +57,4 @@ public final class GlobalKeyListener implements NativeKeyListener {
         this.eventHandler = eventHandler;
         this.eventHandler.run();
     }
-
 }
