@@ -1,4 +1,4 @@
-package KeyListenerHandle;
+package keyboard;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;

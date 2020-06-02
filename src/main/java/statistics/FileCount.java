@@ -1,6 +1,6 @@
-package MultiThreadHandle;
+package statistics;
 
-import SourceData.SourceData;
+import source.SourceData;
 
 import java.io.File;
 import java.nio.file.Path;

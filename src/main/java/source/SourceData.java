@@ -1,10 +1,10 @@
-package SourceData;
+package source;
 
 import java.nio.file.Path;
 
 public class SourceData {
 
-    private Path path;
+    private final Path path;
     private Long countValue;
 
     public SourceData(Path path, Long countValue) {

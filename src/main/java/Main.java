@@ -1,10 +1,10 @@
-import KeyListenerHandle.GlobalKeyListener;
-import MultiThreadHandle.CountStatistics;
-import MultiThreadHandle.CountStatisticsImpl;
-import SourceData.Arguments;
-import SourceData.SourceRead;
-import Util.ConsoleLogger;
-import Util.Report;
+import keyboard.GlobalKeyListener;
+import statistics.CountStatistics;
+import statistics.CountStatisticsImpl;
+import source.Arguments;
+import source.FileUtils;
+import util.ConsoleLogger;
+import util.Report;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -28,19 +28,17 @@ public class Main {
 
         ConsoleLogger.disableLog();
 
-        List<Path> paths = SourceRead.readFrom(arguments, sourceFileName);
+        List<Path> paths = FileUtils.create(arguments).readFrom(sourceFileName);
 
         GlobalKeyListener.escListener(executor::shutdownNow);
 
         CountStatistics countable = new CountStatisticsImpl(executor, paths);
         countable.fileCountStatistics();
 
-        Map<Path, Long> statisticsResult = countable.getStatisticsResult();
+        Map<Path, Long> statistics = countable.getStatistics();
 
-        Report.create(statisticsResult)
-                .print();
-        Report.create(statisticsResult)
-                .saveCsv(destFileName);
+        Report.create(statistics).print();
+        Report.create(statistics).saveCsv(destFileName);
 
         executor.shutdown();
         System.exit(0);

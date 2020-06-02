@@ -1,4 +1,4 @@
-package SourceData;/*
+package source;/*
  * A directory to validate an input data from specified by the user.
  * */
 
@@ -16,7 +16,7 @@ public class Arguments {
 
     public void checkNumberOfArgument() {
         checkArgument(args.length == 2,
-                "Wrong number of arguments",
+                "Wrong number of create",
                 new IllegalArgumentException());
     }
 

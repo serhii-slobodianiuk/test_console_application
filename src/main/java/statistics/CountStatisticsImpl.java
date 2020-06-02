@@ -1,6 +1,6 @@
-package MultiThreadHandle;
+package statistics;
 
-import SourceData.SourceData;
+import source.SourceData;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -12,17 +12,17 @@ public class CountStatisticsImpl implements CountStatistics {
 
     private final ExecutorService executor;
     private List<Path> paths;
-    private Map<Path, Long> statisticsResult;
+    private Map<Path, Long> statistics;
 
     public CountStatisticsImpl(ExecutorService executor, List<Path> paths) {
         this.executor = executor;
         this.paths = paths;
-        this.statisticsResult = new ConcurrentHashMap<>(paths.size());
+        this.statistics = new ConcurrentHashMap<>(paths.size());
     }
 
     @Override
-    public Map<Path, Long> getStatisticsResult() {
-        return statisticsResult;
+    public Map<Path, Long> getStatistics() {
+        return statistics;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CountStatisticsImpl implements CountStatistics {
                 fileCountResult = result.get();
                 path = fileCountResult.getPath();
                 fileCountValue = fileCountResult.getCountValue();
-                statisticsResult.put(path, fileCountValue);
+                statistics.put(path, fileCountValue);
 
             } catch (InterruptedException e) {
                 if (result != null) {
