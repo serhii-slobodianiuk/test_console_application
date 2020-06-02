@@ -45,5 +45,4 @@ public class Arguments {
     public void ensureParentDirExists(File destinationFile) {
         destinationFile.getParentFile().mkdirs();
     }
-
 }
