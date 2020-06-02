@@ -13,5 +13,4 @@ public final class ConsoleLogger {
         logger.setLevel(OFF);
         logger.setUseParentHandlers(false);
     }
-
 }
