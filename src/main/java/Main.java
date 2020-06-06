@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static Report.create;
-
 public class Main {
 
     private static final ExecutorService executor = Executors.newCachedThreadPool();
@@ -39,8 +37,8 @@ public class Main {
 
         Map<Path, Long> statistics = countable.getStatistics();
 
-        create(statistics).print();
-        create(statistics).saveCsv(destFileName);
+        Report.create(statistics).print();
+        Report.create(statistics).saveCsv(destFileName);
 
         executor.shutdown();
 
