@@ -5,7 +5,6 @@ import source.Arguments;
 import source.FileUtils;
 import statistics.CountStatistics;
 import statistics.CountStatisticsImpl;
-import util.ConsoleLogger;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -14,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static util.Report.create;
+import static Report.create;
 
 public class Main {
 
