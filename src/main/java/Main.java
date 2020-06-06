@@ -1,12 +1,11 @@
 import keyboard.GlobalKeyListener;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
-import statistics.CountStatistics;
-import statistics.CountStatisticsImpl;
 import source.Arguments;
 import source.FileUtils;
+import statistics.CountStatistics;
+import statistics.CountStatisticsImpl;
 import util.ConsoleLogger;
-import util.Report;
 
 import java.io.File;
 import java.nio.file.Path;

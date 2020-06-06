@@ -10,14 +10,14 @@ import java.util.List;
 
 public final class FileUtils {
 
-     private Arguments arguments;
+    private Arguments arguments;
 
     private FileUtils(Arguments arguments) {
 
         this.arguments = arguments;
     }
 
-    public static FileUtils create(Arguments arguments){
+    public static FileUtils create(Arguments arguments) {
         return new FileUtils(arguments);
     }
 
