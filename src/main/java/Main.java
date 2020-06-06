@@ -1,4 +1,6 @@
 import keyboard.GlobalKeyListener;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
 import statistics.CountStatistics;
 import statistics.CountStatisticsImpl;
 import source.Arguments;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static util.Report.create;
 
 public class Main {
 
@@ -28,7 +32,7 @@ public class Main {
 
         ConsoleLogger.disableLog();
 
-        List<Path> paths = FileUtils.create(arguments).readFrom(sourceFileName);
+        List<Path> paths = FileUtils.create(arguments).read(sourceFileName);
 
         GlobalKeyListener.escListener(executor::shutdownNow);
 
@@ -37,11 +41,15 @@ public class Main {
 
         Map<Path, Long> statistics = countable.getStatistics();
 
-        Report.create(statistics).print();
-        Report.create(statistics).saveCsv(destFileName);
+        create(statistics).print();
+        create(statistics).saveCsv(destFileName);
 
         executor.shutdown();
-        System.exit(0);
 
+        try {
+            GlobalScreen.unregisterNativeHook();
+        } catch (NativeHookException e) {
+            throw new IllegalStateException();
+        }
     }
 }
