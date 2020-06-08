@@ -1,6 +1,4 @@
-package source;/*
- * A directory to validate an input data from specified by the user.
- * */
+package source;
 
 import java.io.File;
 
