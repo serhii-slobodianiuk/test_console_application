@@ -1,22 +1,22 @@
-package source;
+package statistics;
 
 import java.nio.file.Path;
 
-public class SourceData {
+class StatisticData {
 
     private final Path path;
     private Long countValue;
 
-    public SourceData(Path path, Long countValue) {
+    StatisticData(Path path, Long countValue) {
         this.path = path;
         this.countValue = countValue;
     }
 
-    public Path getPath() {
+    Path getPath() {
         return path;
     }
 
-    public Long getCountValue() {
+    Long getCountValue() {
         return countValue;
     }
 }

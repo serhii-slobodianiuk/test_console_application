@@ -1,12 +1,9 @@
 package statistics;
 
-import source.SourceData;
-
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
-
 
 public class CountStatisticsImpl implements CountStatistics {
 
@@ -28,7 +25,7 @@ public class CountStatisticsImpl implements CountStatistics {
     @Override
     public void fileCountStatistics() {
 
-        CompletionService<SourceData> cs = new ExecutorCompletionService<>(executor);
+        CompletionService<StatisticData> cs = new ExecutorCompletionService<>(executor);
 
         for (Path path : paths) {
             cs.submit(new FileCount(path));
@@ -36,8 +33,8 @@ public class CountStatisticsImpl implements CountStatistics {
 
         for (int i = 0; i < paths.size(); i++) {
 
-            Future<SourceData> result = null;
-            SourceData fileCountResult;
+            Future<StatisticData> result = null;
+            StatisticData fileCountResult;
             Path path;
             Long fileCountValue;
 

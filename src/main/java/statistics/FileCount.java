@@ -1,13 +1,11 @@
 package statistics;
 
-import source.SourceData;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-public class FileCount implements Callable<SourceData> {
+public class FileCount implements Callable<StatisticData> {
     private final Path path;
 
     FileCount(Path path) {
@@ -34,8 +32,7 @@ public class FileCount implements Callable<SourceData> {
         return countResult;
     }
 
-    public SourceData call() {
-        return new SourceData(path, count(path));
+    public StatisticData call() {
+        return new StatisticData(path, count(path));
     }
-
 }
