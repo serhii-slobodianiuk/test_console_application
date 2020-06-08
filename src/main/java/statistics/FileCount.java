@@ -17,11 +17,10 @@ public class FileCount implements Callable<SourceData> {
     private Long count(Path path) {
         long countResult = 0;
         if (!Thread.currentThread().isInterrupted()) {
-        File f = new File(String.valueOf(path));
-        File[] files = f.listFiles();
+            File f = new File(String.valueOf(path));
+            File[] files = f.listFiles();
 
-        if (files != null) {
-
+            if (files != null) {
                 for (File file : files) {
                     if (file.isDirectory()) {
                         countResult += count(Paths.get(file.getAbsolutePath()));
