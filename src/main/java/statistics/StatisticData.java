@@ -2,7 +2,7 @@ package statistics;
 
 import java.nio.file.Path;
 
-class StatisticData {
+public class StatisticData {
 
     private final Path path;
     private Long countValue;
@@ -12,11 +12,11 @@ class StatisticData {
         this.countValue = countValue;
     }
 
-    Path getPath() {
+    public Path getPath() {
         return path;
     }
 
-    Long getCountValue() {
+    public Long getCountValue() {
         return countValue;
     }
 }

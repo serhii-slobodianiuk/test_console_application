@@ -33,7 +33,7 @@ public class Main {
         CountStatistics countable = new CountStatisticsImpl(executor, paths);
         countable.fileCountStatistics();
 
-        Map<Path, Long> statistics = countable.getStatistics();
+        Map<?, ?> statistics = countable.getStatistics();
 
         Report.create(statistics).print();
         Report.create(statistics).saveCsv(destFileName);

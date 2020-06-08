@@ -9,7 +9,7 @@ public class CountStatisticsImpl implements CountStatistics {
 
     private final ExecutorService executor;
     private List<Path> paths;
-    private Map<Path, Long> statistics;
+    private Map<Path, StatisticData> statistics;
 
     public CountStatisticsImpl(ExecutorService executor, List<Path> paths) {
         this.executor = executor;
@@ -18,7 +18,7 @@ public class CountStatisticsImpl implements CountStatistics {
     }
 
     @Override
-    public Map<Path, Long> getStatistics() {
+    public Map<Path, StatisticData> getStatistics() {
         return statistics;
     }
 
@@ -43,7 +43,8 @@ public class CountStatisticsImpl implements CountStatistics {
                 fileCountResult = result.get();
                 path = fileCountResult.getPath();
                 fileCountValue = fileCountResult.getCountValue();
-                statistics.put(path, fileCountValue);
+                StatisticData sd = new StatisticData(path, fileCountValue);
+                statistics.put(path, sd);
 
             } catch (InterruptedException e) {
                 if (result != null) {
