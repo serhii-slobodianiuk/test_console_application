@@ -57,4 +57,5 @@ public final class GlobalKeyListener implements NativeKeyListener {
             throw new IllegalStateException();
         }
     }
+
 }
