@@ -3,6 +3,7 @@ import source.Arguments;
 import source.FileUtils;
 import statistics.CountStatistics;
 import statistics.CountStatisticsImpl;
+import statistics.StatisticData;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -31,9 +32,9 @@ public class Main {
         GlobalKeyListener.escListener(executor::shutdownNow);
 
         CountStatistics countable = new CountStatisticsImpl(executor, paths);
-        countable.fileCountStatistics();
+        countable.countStatistics();
 
-        Map<?, ?> statistics = countable.getStatistics();
+        Map<Path, StatisticData> statistics = countable.getStatisticsResult();
 
         Report.create(statistics).print();
         Report.create(statistics).saveCsv(destFileName);

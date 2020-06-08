@@ -18,12 +18,12 @@ public class CountStatisticsImpl implements CountStatistics {
     }
 
     @Override
-    public Map<Path, StatisticData> getStatistics() {
+    public Map<Path, StatisticData> getStatisticsResult() {
         return statistics;
     }
 
     @Override
-    public void fileCountStatistics() {
+    public void countStatistics() {
 
         CompletionService<StatisticData> cs = new ExecutorCompletionService<>(executor);
 
@@ -43,8 +43,7 @@ public class CountStatisticsImpl implements CountStatistics {
                 fileCountResult = result.get();
                 path = fileCountResult.getPath();
                 fileCountValue = fileCountResult.getCountValue();
-                StatisticData sd = new StatisticData(path, fileCountValue);
-                statistics.put(path, sd);
+                statistics.put(path, new StatisticData(path, fileCountValue));
 
             } catch (InterruptedException e) {
                 if (result != null) {

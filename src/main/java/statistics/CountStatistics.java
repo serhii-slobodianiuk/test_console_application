@@ -1,10 +1,11 @@
 package statistics;
 
+import java.nio.file.Path;
 import java.util.Map;
 
 public interface CountStatistics {
 
-    void fileCountStatistics();
+    void countStatistics();
 
-    Map<?, ?> getStatistics();
+    Map<Path, StatisticData> getStatisticsResult();
 }
