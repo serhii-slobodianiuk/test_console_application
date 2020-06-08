@@ -23,7 +23,7 @@ public class CountStatisticsImpl implements CountStatistics {
     }
 
     @Override
-    public void countStatistics() {
+    public void statisticsCounter() {
 
         CompletionService<StatisticData> cs = new ExecutorCompletionService<>(executor);
 

@@ -32,7 +32,7 @@ public class Main {
         GlobalKeyListener.escListener(executor::shutdownNow);
 
         CountStatistics countable = new CountStatisticsImpl(executor, paths);
-        countable.countStatistics();
+        countable.statisticsCounter();
 
         Map<Path, StatisticData> statistics = countable.getStatisticsResult();
 

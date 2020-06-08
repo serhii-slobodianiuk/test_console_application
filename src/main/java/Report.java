@@ -37,7 +37,7 @@ public final class Report {
 
     public void print() {
         int rowIndex = 0;
-        System.out.printf("%-10s| %-11s| %s\n", "Row Index", "File count", "FileUtils");
+        System.out.printf("%-10s| %-11s| %s\n", "Row Index", "File count", "Path");
         System.out.println("-------------------------------");
         for (Path path : statistics.keySet()) {
             StatisticData result = statistics.get(path);
