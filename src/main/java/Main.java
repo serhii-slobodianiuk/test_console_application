@@ -1,6 +1,4 @@
 import keyboard.GlobalKeyListener;
-import org.jnativehook.GlobalScreen;
-import org.jnativehook.NativeHookException;
 import source.Arguments;
 import source.FileUtils;
 import statistics.CountStatistics;
@@ -42,10 +40,6 @@ public class Main {
 
         executor.shutdown();
 
-        try {
-            GlobalScreen.unregisterNativeHook();
-        } catch (NativeHookException e) {
-            throw new IllegalStateException();
-        }
+        GlobalKeyListener.closeHook();
     }
 }

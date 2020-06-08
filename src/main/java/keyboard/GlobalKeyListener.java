@@ -30,12 +30,8 @@ public final class GlobalKeyListener implements NativeKeyListener {
     @Override
     public void nativeKeyPressed(NativeKeyEvent event) {
         if (event.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
-            try {
-                whenPressed(eventHandler);
-                GlobalScreen.unregisterNativeHook();
-            } catch (NativeHookException e1) {
-                e1.printStackTrace();
-            }
+            whenPressed(eventHandler);
+            closeHook();
         }
     }
 
@@ -52,5 +48,13 @@ public final class GlobalKeyListener implements NativeKeyListener {
     private void whenPressed(Runnable eventHandler) {
         this.eventHandler = eventHandler;
         this.eventHandler.run();
+    }
+
+    public static void closeHook() {
+        try {
+            GlobalScreen.unregisterNativeHook();
+        } catch (NativeHookException e) {
+            throw new IllegalStateException();
+        }
     }
 }
