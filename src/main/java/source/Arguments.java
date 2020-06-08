@@ -14,7 +14,7 @@ public class Arguments {
 
     public void checkNumberOfArgument() {
         checkArgument(args.length == 2,
-                "Wrong number of create",
+                "Wrong number of arguments",
                 new IllegalArgumentException());
     }
 
