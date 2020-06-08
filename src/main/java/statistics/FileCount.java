@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-public class FileCount implements Callable<SourceData>{
+public class FileCount implements Callable<SourceData> {
     private final Path path;
 
     FileCount(Path path) {
@@ -17,25 +17,22 @@ public class FileCount implements Callable<SourceData>{
     private Long count(Path path) {
 
         long countResult = 0;
+        File f = new File(String.valueOf(path));
+        File[] files = f.listFiles();
 
-        if (!Thread.currentThread().isInterrupted()) {
-            File f = new File(String.valueOf(path));
-            File[] files = f.listFiles();
-
-            if (files != null) {
+        if (files != null) {
+            if (!Thread.currentThread().isInterrupted()) {
                 for (File file : files) {
                     if (file.isDirectory()) {
                         countResult += count(Paths.get(file.getAbsolutePath()));
                     } else {
                         countResult++;
-
                     }
                 }
+                return countResult;
             }
-            return countResult;
-        } else {
-            return countResult;
         }
+        return countResult;
     }
 
     public SourceData call() {

@@ -39,7 +39,6 @@ public class Main {
         Report.create(statistics).saveCsv(destFileName);
 
         executor.shutdown();
-
         GlobalKeyListener.closeHook();
     }
 }
