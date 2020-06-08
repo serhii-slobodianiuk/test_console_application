@@ -53,7 +53,7 @@ public final class GlobalKeyListener implements NativeKeyListener {
     public static void closeHook() {
         try {
             GlobalScreen.unregisterNativeHook();
-        } catch (NativeHookException e) {
+        } catch (NativeHookException ex) {
             throw new IllegalStateException();
         }
     }
