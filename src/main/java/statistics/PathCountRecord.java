@@ -2,12 +2,12 @@ package statistics;
 
 import java.nio.file.Path;
 
-public class PathFileCompute {
+public class PathCountRecord {
 
     private final Path path;
     private Long countValue;
 
-    PathFileCompute(Path path, Long countValue) {
+    PathCountRecord(Path path, Long countValue) {
         this.path = path;
         this.countValue = countValue;
     }
