@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-public class FileCount implements Callable<StatisticData> {
+public class FileCount implements Callable<DataRecord> {
     private final Path path;
 
     FileCount(Path path) {
@@ -32,7 +32,7 @@ public class FileCount implements Callable<StatisticData> {
         return countResult;
     }
 
-    public StatisticData call() {
-        return new StatisticData(path, count(path));
+    public DataRecord call() {
+        return new DataRecord(path, count(path));
     }
 }

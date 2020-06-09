@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface CountStatistics {
 
-    void statisticsCounter();
+    void computeStatisticsService();
 
-    Map<Path, StatisticData> getStatisticsResult();
+    Map<Path, DataRecord> getStatistics();
 }

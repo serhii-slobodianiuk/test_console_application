@@ -1,4 +1,4 @@
-import statistics.StatisticData;
+import statistics.DataRecord;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -9,19 +9,19 @@ import java.util.Map;
 
 public final class Report {
 
-    private final Map<Path, StatisticData> statistics;
+    private final Map<Path, DataRecord> statistics;
 
-    private Report(Map<Path, StatisticData> statistics) {
+    private Report(Map<Path, DataRecord> statistics) {
         this.statistics = statistics;
     }
 
-    public static Report create(Map<Path, StatisticData> statistics) {
+    public static Report create(Map<Path, DataRecord> statistics) {
         return new Report(statistics);
     }
 
     public void saveCsv(String destination) {
         for (Path path : statistics.keySet()) {
-            StatisticData result = statistics.get(path);
+            DataRecord result = statistics.get(path);
             try (FileWriter fw = new FileWriter(destination, true);
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter out = new PrintWriter(bw)) {
@@ -40,7 +40,7 @@ public final class Report {
         System.out.printf("%-10s| %-11s| %s\n", "Row Index", "File count", "Path");
         System.out.println("-------------------------------");
         for (Path path : statistics.keySet()) {
-            StatisticData result = statistics.get(path);
+            DataRecord result = statistics.get(path);
             rowIndex++;
             System.out.printf("%-10d| %-11d| %s\n", rowIndex, result.getCountValue(), path);
         }
