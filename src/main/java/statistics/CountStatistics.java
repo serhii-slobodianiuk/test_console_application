@@ -7,5 +7,5 @@ public interface CountStatistics {
 
     void computeStatisticsService();
 
-    Map<Path, DataRecord> getStatistics();
+    Map<Path, PathFileCompute> getStatistics();
 }
