@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
+import static java.util.Map.copyOf;
+
+
 public class CountStatisticsImpl implements CountStatistics {
 
     private final ExecutorService executor;
@@ -19,7 +22,7 @@ public class CountStatisticsImpl implements CountStatistics {
 
     @Override
     public Map<Path, PathCountRecord> getStatistics() {
-        return statistics;
+        return copyOf(statistics);
     }
 
     @Override
