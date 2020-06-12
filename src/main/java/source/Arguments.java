@@ -22,10 +22,6 @@ public class Arguments {
         File file = new File(path);
         if (!file.exists()) {
             System.err.println(file + "...... file doesn't exist");
-            /*
-             * if you delete this throw, you can pass the fake path
-             * and continue reading the next line
-             * */
             throw new IllegalArgumentException();
 
         } else if (!file.canRead()) {

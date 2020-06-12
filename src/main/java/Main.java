@@ -34,6 +34,7 @@ public class Main {
         CountStatistics countable = new CountStatisticsImpl(executor, paths);
         countable.computeStatisticsService();
 
+
         Map<Path, PathCountRecord> statistics = countable.getStatistics();
 
         Report.create(statistics).print();
