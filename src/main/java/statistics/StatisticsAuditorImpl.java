@@ -8,13 +8,13 @@ import java.util.concurrent.*;
 import static java.util.Map.copyOf;
 
 
-public class CountStatisticsImpl implements CountStatistics {
+public class StatisticsAuditorImpl implements StatisticsAuditor {
 
     private final ExecutorService executor;
     private List<Path> paths;
     private Map<Path, PathCountRecord> statistics;
 
-    public CountStatisticsImpl(ExecutorService executor, List<Path> paths) {
+    public StatisticsAuditorImpl(ExecutorService executor, List<Path> paths) {
         this.executor = executor;
         this.paths = paths;
         this.statistics = new ConcurrentHashMap<>(paths.size());

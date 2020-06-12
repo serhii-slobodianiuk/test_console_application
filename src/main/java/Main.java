@@ -1,8 +1,8 @@
 import keyboard.GlobalKeyListener;
 import source.Arguments;
 import source.FileUtils;
-import statistics.CountStatistics;
-import statistics.CountStatisticsImpl;
+import statistics.StatisticsAuditor;
+import statistics.StatisticsAuditorImpl;
 import statistics.PathCountRecord;
 
 import java.io.File;
@@ -31,7 +31,7 @@ public class Main {
 
         GlobalKeyListener.escListener(executor::shutdownNow);
 
-        CountStatistics countable = new CountStatisticsImpl(executor, paths);
+        StatisticsAuditor countable = new StatisticsAuditorImpl(executor, paths);
         countable.computeStatisticsService();
 
 

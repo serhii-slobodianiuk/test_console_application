@@ -3,7 +3,7 @@ package statistics;
 import java.nio.file.Path;
 import java.util.Map;
 
-public interface CountStatistics {
+public interface StatisticsAuditor {
 
     void computeStatisticsService();
 
