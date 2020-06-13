@@ -5,10 +5,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-public class FileCount implements Callable<PathCountRecord> {
+public class DirTreeFileCounter implements Callable<PathCountRecord> {
     private final Path path;
 
-    FileCount(Path path) {
+    DirTreeFileCounter(Path path) {
         this.path = path;
     }
 
