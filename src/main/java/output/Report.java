@@ -1,3 +1,5 @@
+package output;
+
 import statistics.PathCountRecord;
 
 import java.io.BufferedWriter;

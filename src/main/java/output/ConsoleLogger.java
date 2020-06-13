@@ -1,3 +1,5 @@
+package output;
+
 import org.jnativehook.GlobalScreen;
 
 import java.util.logging.Logger;
