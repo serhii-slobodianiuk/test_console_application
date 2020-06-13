@@ -20,11 +20,6 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
     }
 
     @Override
-    public Map<Path, PathCountRecord> getStatistics() {
-        return copyOf(statistics);
-    }
-
-    @Override
     public void startStatisticsCompute() {
 
         CompletionService<PathCountRecord> cs = new ExecutorCompletionService<>(executor);
@@ -52,7 +47,6 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
         }
     }
 
-
     @Override
     public void saveStatisticsCompute(PathCountRecord fileCountResult){
         Path path;
@@ -60,5 +54,10 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
         path = fileCountResult.getPath();
         fileCountValue = fileCountResult.getCountValue();
         statistics.put(path, new PathCountRecord(path, fileCountValue));
+    }
+
+    @Override
+    public Map<Path, PathCountRecord> getStatistics() {
+        return copyOf(statistics);
     }
 }
