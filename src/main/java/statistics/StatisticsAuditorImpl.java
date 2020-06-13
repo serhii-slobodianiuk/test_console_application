@@ -7,7 +7,6 @@ import java.util.concurrent.*;
 
 import static java.util.Map.copyOf;
 
-
 public class StatisticsAuditorImpl implements StatisticsAuditor {
 
     private final ExecutorService executor;
