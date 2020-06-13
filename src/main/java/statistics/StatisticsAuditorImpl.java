@@ -21,17 +21,17 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
     }
 
     @Override
-    public Map<Path, PathCountRecord> getStatistics() {
+    public Map<Path, PathCountRecord> getStatisticsResult() {
         return copyOf(statistics);
     }
 
     @Override
-    public void computeStatisticsService() {
+    public void conspectusStatistics() {
 
         CompletionService<PathCountRecord> cs = new ExecutorCompletionService<>(executor);
 
         for (Path path : paths) {
-            cs.submit(new FileCount(path));
+            cs.submit(new DirTreeFileCounter(path));
         }
         for (int i = 0; i < paths.size(); i++) {
 

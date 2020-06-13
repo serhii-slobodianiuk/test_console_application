@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface StatisticsAuditor {
 
-    void computeStatisticsService();
+    void conspectusStatistics();
 
-    Map<Path, PathCountRecord> getStatistics();
+    Map<Path, PathCountRecord> getStatisticsResult();
 }
