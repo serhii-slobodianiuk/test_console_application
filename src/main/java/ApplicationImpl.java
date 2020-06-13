@@ -1,4 +1,6 @@
 import keyboard.GlobalKeyListener;
+import output.ConsoleLogger;
+import output.Report;
 import source.Arguments;
 import source.FileUtils;
 import statistics.PathCountRecord;
@@ -38,7 +40,7 @@ public final class ApplicationImpl implements Application {
         StatisticsAuditor auditor = new StatisticsAuditorImpl(executor, paths);
         auditor.conspectusStatistics();
 
-        Map<Path, PathCountRecord> statistics = auditor.getStatisticsResult();
+        Map<Path, PathCountRecord> statistics = auditor.getStatisticsInference();
 
         Report.create(statistics).print();
         Report.create(statistics).saveCsv(destFileName);

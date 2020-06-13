@@ -21,7 +21,7 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
     }
 
     @Override
-    public Map<Path, PathCountRecord> getStatisticsResult() {
+    public Map<Path, PathCountRecord> getStatisticsInference() {
         return copyOf(statistics);
     }
 

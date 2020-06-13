@@ -7,5 +7,5 @@ public interface StatisticsAuditor {
 
     void conspectusStatistics();
 
-    Map<Path, PathCountRecord> getStatisticsResult();
+    Map<Path, PathCountRecord> getStatisticsInference();
 }
