@@ -24,23 +24,22 @@ public final class ApplicationImpl implements Application {
 
     @Override
     public void runApp() {
-        Arguments arguments = new Arguments(args);
 
+        Arguments arguments = new Arguments(args);
         arguments.checkNumberOfArgument();
         String sourceFileName = String.valueOf(arguments.sourceFile());
         String destFileName = String.valueOf(arguments.destinationFile());
         arguments.ensureParentDirExists(new File(destFileName));
 
-        ConsoleLogger.disableLog();
-
         var paths = FileUtils.create(arguments).read(sourceFileName);
 
+        ConsoleLogger.disableLog();
         GlobalKeyListener.escListener(executor::shutdownNow);
 
         StatisticsAuditor auditor = new StatisticsAuditorImpl(executor, paths);
-        auditor.conspectusStatistics();
+        auditor.startStatisticsCompute();
 
-        Map<Path, PathCountRecord> statistics = auditor.getStatisticsInference();
+        Map<Path, PathCountRecord> statistics = auditor.getStatistics();
 
         Report.create(statistics).print();
         Report.create(statistics).saveCsv(destFileName);
