@@ -11,7 +11,7 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
 
     private final ExecutorService executor;
     private List<Path> paths;
-    private Map<Path, PathCountRecord> statistics;
+    private Map<Path, PathCount> statistics;
 
     public StatisticsAuditorImpl(ExecutorService executor, List<Path> paths) {
         this.executor = executor;
@@ -22,20 +22,20 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
     @Override
     public void startStatisticsCompute() {
 
-        CompletionService<PathCountRecord> cs = new ExecutorCompletionService<>(executor);
+        CompletionService<PathCount> cs = new ExecutorCompletionService<>(executor);
 
         for (Path path : paths) {
             cs.submit(new DirTreeFileCounter(path));
         }
         for (int i = 0; i < paths.size(); i++) {
 
-            Future<PathCountRecord> result = null;
-            PathCountRecord fileCountResult;
+            Future<PathCount> result = null;
+            PathCount pathCount;
 
             try {
                 result = cs.take();
-                fileCountResult = result.get();
-                saveStatisticsCompute(fileCountResult);
+                pathCount = result.get();
+                saveStatisticsCompute(pathCount);
             } catch (InterruptedException e) {
                 if (result != null) {
                     result.cancel(true);
@@ -48,16 +48,16 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
     }
 
     @Override
-    public void saveStatisticsCompute(PathCountRecord fileCountResult){
+    public void saveStatisticsCompute(PathCount fileCountResult){
         Path path;
         Long fileCountValue;
         path = fileCountResult.getPath();
         fileCountValue = fileCountResult.getCountValue();
-        statistics.put(path, new PathCountRecord(path, fileCountValue));
+        statistics.put(path, new PathCount(path, fileCountValue));
     }
 
     @Override
-    public Map<Path, PathCountRecord> getStatistics() {
+    public Map<Path, PathCount> getStatistics() {
         return copyOf(statistics);
     }
 }

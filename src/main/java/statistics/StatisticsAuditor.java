@@ -7,7 +7,7 @@ public interface StatisticsAuditor {
 
     void startStatisticsCompute();
 
-    void saveStatisticsCompute(PathCountRecord result);
+    void saveStatisticsCompute(PathCount result);
 
-    Map<Path, PathCountRecord> getStatistics();
+    Map<Path, PathCount> getStatistics();
 }

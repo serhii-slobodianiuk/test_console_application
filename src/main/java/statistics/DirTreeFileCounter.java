@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-public class DirTreeFileCounter implements Callable<PathCountRecord> {
+public class DirTreeFileCounter implements Callable<PathCount> {
     private final Path path;
 
     DirTreeFileCounter(Path path) {
@@ -32,7 +32,7 @@ public class DirTreeFileCounter implements Callable<PathCountRecord> {
         return countResult;
     }
 
-    public PathCountRecord call() {
-        return new PathCountRecord(path, count(path));
+    public PathCount call() {
+        return new PathCount(path, count(path));
     }
 }

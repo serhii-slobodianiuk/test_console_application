@@ -3,7 +3,7 @@ import output.ConsoleLogger;
 import output.Report;
 import source.Arguments;
 import source.FileUtils;
-import statistics.PathCountRecord;
+import statistics.PathCount;
 import statistics.StatisticsAuditor;
 import statistics.StatisticsAuditorImpl;
 
@@ -39,7 +39,7 @@ public final class ApplicationImpl implements Application {
         StatisticsAuditor auditor = new StatisticsAuditorImpl(executor, paths);
         auditor.startStatisticsCompute();
 
-        Map<Path, PathCountRecord> statistics = auditor.getStatistics();
+        Map<Path, PathCount> statistics = auditor.getStatistics();
 
         Report.create(statistics).print();
         Report.create(statistics).saveCsv(destFileName);
