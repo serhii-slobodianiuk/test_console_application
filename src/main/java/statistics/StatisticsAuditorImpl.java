@@ -20,12 +20,12 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
     }
 
     @Override
-    public Map<Path, PathCountRecord> getStatisticsInference() {
+    public Map<Path, PathCountRecord> getStatistics() {
         return copyOf(statistics);
     }
 
     @Override
-    public void conspectusStatistics() {
+    public void startStatisticsCompute() {
 
         CompletionService<PathCountRecord> cs = new ExecutorCompletionService<>(executor);
 
@@ -36,16 +36,11 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
 
             Future<PathCountRecord> result = null;
             PathCountRecord fileCountResult;
-            Path path;
-            Long fileCountValue;
 
             try {
                 result = cs.take();
                 fileCountResult = result.get();
-                path = fileCountResult.getPath();
-                fileCountValue = fileCountResult.getCountValue();
-                statistics.put(path, new PathCountRecord(path, fileCountValue));
-
+                saveStatisticsCompute(fileCountResult);
             } catch (InterruptedException e) {
                 if (result != null) {
                     result.cancel(true);
@@ -55,5 +50,15 @@ public class StatisticsAuditorImpl implements StatisticsAuditor {
                 System.err.println("Internal exception: " + e.getMessage());
             }
         }
+    }
+
+
+    @Override
+    public void saveStatisticsCompute(PathCountRecord fileCountResult){
+        Path path;
+        Long fileCountValue;
+        path = fileCountResult.getPath();
+        fileCountValue = fileCountResult.getCountValue();
+        statistics.put(path, new PathCountRecord(path, fileCountValue));
     }
 }

@@ -5,7 +5,9 @@ import java.util.Map;
 
 public interface StatisticsAuditor {
 
-    void conspectusStatistics();
+    void startStatisticsCompute();
 
-    Map<Path, PathCountRecord> getStatisticsInference();
+    void saveStatisticsCompute(PathCountRecord result);
+
+    Map<Path, PathCountRecord> getStatistics();
 }
