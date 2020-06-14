@@ -20,7 +20,7 @@ public final class ApplicationImpl implements Application {
 
     private String[] args;
 
-    public ApplicationImpl(String[] args) {
+    ApplicationImpl(String[] args) {
         this.args = args;
     }
 
