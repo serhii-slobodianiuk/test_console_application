@@ -30,7 +30,6 @@ public final class Report {
                 out.print(path);
                 out.print(";");
                 out.println(result.getCountValue());
-//                out.println(";");
             } catch (IOException e) {
                 throw new IllegalStateException(e);
             }
