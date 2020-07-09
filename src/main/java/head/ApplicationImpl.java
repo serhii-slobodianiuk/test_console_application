@@ -27,10 +27,10 @@ public final class ApplicationImpl implements Application {
     @Override
     public void runApp() {
 
-        Arguments arguments = new Arguments(args);
+        var arguments = new Arguments(args);
         arguments.checkNumberOfArgument();
-        String sourceFileName = String.valueOf(arguments.sourceFile());
-        String destFileName = String.valueOf(arguments.destinationFile());
+        var sourceFileName = String.valueOf(arguments.sourceFile());
+        var destFileName = String.valueOf(arguments.destinationFile());
         arguments.ensureParentDirExists(new File(destFileName));
 
         var paths = FileUtils.create(arguments).read(sourceFileName);
@@ -41,7 +41,7 @@ public final class ApplicationImpl implements Application {
         StatisticsAuditor auditor = new StatisticsAuditorImpl(executor, paths);
         auditor.startStatisticsCompute();
 
-        Map<Path, PathCount> statistics = auditor.getStatistics();
+        var statistics = auditor.getStatistics();
 
         Report.create(statistics).print();
         Report.create(statistics).saveCsv(destFileName);
