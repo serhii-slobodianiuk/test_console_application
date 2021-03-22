@@ -1,17 +1,14 @@
-package head;
+package controller;
 
 import keyboard.GlobalKeyListener;
 import output.ConsoleLogger;
 import output.Report;
 import source.Arguments;
 import source.FileUtils;
-import statistics.PathCount;
 import statistics.StatisticsAuditor;
 import statistics.StatisticsAuditorImpl;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

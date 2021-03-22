@@ -28,7 +28,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>head.Main</mainClass>
+                            <mainClass>controller.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
