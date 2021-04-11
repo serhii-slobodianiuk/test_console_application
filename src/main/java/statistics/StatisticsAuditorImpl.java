@@ -10,8 +10,8 @@ import static java.util.Map.copyOf;
 public class StatisticsAuditorImpl implements StatisticsAuditor {
 
     private final ExecutorService executor;
-    private List<Path> paths;
-    private Map<Path, PathCount> statistics;
+    private final List<Path> paths;
+    private final Map<Path, PathCount> statistics;
 
     public StatisticsAuditorImpl(ExecutorService executor, List<Path> paths) {
         this.executor = executor;

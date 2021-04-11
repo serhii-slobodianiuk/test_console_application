@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import static java.util.logging.Level.OFF;
 
-public final class ConsoleLogger {
+public class ConsoleLogger{
 
     public static void disableLog() {
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());

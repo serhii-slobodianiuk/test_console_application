@@ -5,7 +5,7 @@ import java.nio.file.Path;
 public class PathCount {
 
     private final Path path;
-    private Long countValue;
+    private final Long countValue;
 
     PathCount(Path path, Long countValue) {
         this.path = path;

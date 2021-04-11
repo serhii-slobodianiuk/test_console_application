@@ -4,11 +4,11 @@ import java.io.File;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class Arguments {
+public class ArgumentsHandler {
 
     private String[] args;
 
-    public Arguments(String[] args) {
+    public ArgumentsHandler(String[] args) {
         this.args = args;
     }
 
